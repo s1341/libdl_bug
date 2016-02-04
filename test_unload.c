@@ -42,17 +42,9 @@ int main (int argc, char **argv)
 {
   printf ("started\n");
 
-  void * pt_handle = __libc_dlopen_mode ("/lib/libpthread.so.0", RTLD_LAZY | 0x80000000);
-  printf ("pt_handle: %p\n", pt_handle);
-  void (*pthread_c)(void **thread, void *, void * (*threadfunc)(void *), void *) = __libc_dlsym(pt_handle, "pthread_create");
-  printf ("pthread_create: %p\n", pthread_c);
-  void * thread;
+  pthread_t thread;
 
-  pthread_c (&thread, NULL, threadfunc, NULL);
-
-  printf ("closing libpthread\n");
-  printf ("pt_handle: %p\n", pt_handle);
-  __libc_dlclose (pt_handle);
+  pthread_create (&thread, NULL, threadfunc, NULL);
 
   printf ("letting thread run...\n");
   sleep (5);
