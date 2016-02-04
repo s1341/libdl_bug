@@ -29,8 +29,6 @@ void * threadfunc (void * arg)
   __libc_dlclose (handle);
   printf ("done dlclose\n");
 
-  sleep (3);
-
   while (!stopping)
       sleep (1);
 
